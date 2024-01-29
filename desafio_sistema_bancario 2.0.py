@@ -23,6 +23,7 @@ dado_conta = {
     'total_extrato_deposito': 0
 }
 
+# ATRIBUTOS DO USUÁRIO
 usuario = {
     'nome': [],
     'data_de_nascimento': [],
@@ -37,6 +38,7 @@ usuario = {
     }
 }
 
+# ATRIBUTOS DA CONTA CORRENTE
 conta_corrente = {
     'agencia': ['0001'],
     'conta': [0],
@@ -64,7 +66,7 @@ def criar_conta_corrente(*, usuario):
     conta_corrente['conta'][0] += 1  # Increment account number
     conta_corrente['usuario'].append(usuario)
 
-# FUNÇÕES SACAR, DEPOSITAR, VISUALIZAR_EXTRATO_SAQUE E VISUALIZAR_EXTRATO_DEPOSITO
+# FUNÇÕES SACAR
 def sacar(dado_conta, valor):
     if isinstance(valor, int):
         if valor <= dado_conta['saldo']:
@@ -84,7 +86,7 @@ def sacar(dado_conta, valor):
             print("SALDO INSUFICIENTE.")
     else:
         print("VALOR INVÁLIDO!")
-
+# FUNÇÃO DEPOSITAR
 def depositar(dado_conta, valor, /):
     if isinstance(valor, int):
         if valor > 0:
@@ -97,19 +99,21 @@ def depositar(dado_conta, valor, /):
             print("VALOR INVÁLIDO!")
     else:
         print("VALOR INVÁLIDO!")
-
+# FUNÇÃO VISUALIZAR_EXTRATO_SAQUE
 def visualizar_extrato_saque(dado_conta, /):
     print(f"==== Extrato - Saques da data: {hoje} ====")
     for extrato in dado_conta['extrato_saque']:
         print(f"Saque de R$ {extrato} realizado na data {hoje}.")
     print(f"Saldo total: R$ {dado_conta['saldo']}")
 
+# FUNÇÃO VISUALIZAR_EXTRATO_DEPOSITO
 def visualizar_extrato_deposito(dado_conta, /):
     print(f"==== Extrato - Depósitos da data: {hoje} ====")
     for extrato in dado_conta['extrato_deposito']:
         print(f"Depósito de R$ {extrato} realizado na data {hoje}.")
     print(f"Saldo total: R$ {dado_conta['saldo']}")
 
+# FUNÇÃO VALIDAR_CPF_NOVO_USUARIO
 def validar_cpf_novo_usuario(cpf):
     if cpf not in usuario['cpf']:
         novo_usuario = criar_usuario(
@@ -138,6 +142,7 @@ def validar_cpf_novo_usuario(cpf):
     else:
         print('Usuário já cadastrado no nosso sistema.')
 
+# FUNÇÃO VALIDAR_CPF_CLIENTE
 def validar_cpf_cliente(cpf):
     if cpf in usuario['cpf']:
         criar_conta_corrente(usuario=usuario)
